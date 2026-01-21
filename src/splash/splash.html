@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BrainyTech</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      overflow: hidden;
+      -webkit-app-region: drag;
+    }
+
+    .splash-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      z-index: 1;
+    }
+
+    .splash-logo {
+      width: 100px;
+      height: 100px;
+    }
+
+    .splash-logo svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Brain path animation */
+    .brain-path {
+      stroke-dasharray: 300;
+      stroke-dashoffset: 300;
+      animation: drawBrain 1.5s ease-out forwards;
+    }
+
+    /* Code brackets animation */
+    .code-bracket-left,
+    .code-bracket-right,
+    .code-slash {
+      stroke-dasharray: 50;
+      stroke-dashoffset: 50;
+      animation: drawCode 0.8s ease-out forwards;
+      animation-delay: 0.8s;
+    }
+
+    .code-bracket-right {
+      animation-delay: 0.9s;
+    }
+
+    .code-slash {
+      animation-delay: 1s;
+    }
+
+    @keyframes drawBrain {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes drawCode {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    .splash-brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .splash-brand-main {
+      font-size: 28px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 1px;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease-out forwards;
+      animation-delay: 1.2s;
+    }
+
+    .splash-brand-sub {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.6);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease-out forwards;
+      animation-delay: 1.4s;
+    }
+
+    .splash-version {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.35);
+      font-weight: 500;
+      opacity: 0;
+      animation: fadeInUp 0.6s ease-out forwards;
+      animation-delay: 1.6s;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Fade out animation class */
+    .fade-out {
+      animation: fadeOut 0.5s ease-out forwards;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="splash-content">
+    <!-- Logo -->
+    <div class="splash-logo">
+      <svg viewBox="0 0 80 80" fill="none">
+        <!-- Brain outline -->
+        <path
+          d="M40 8C24 8 12 18 12 28c0 5 2.5 10 5 13.5C14 44.5 12 48 12 52c0 8 7.5 15 15 15 4 0 7.5-1.5 10-4 2.5 2.5 6 4 10 4 7.5 0 15-7 15-15 0-4-2.5-8.5-5-11 2.5-3.5 5-8.5 5-13.5 0-10-10-20-22-20z"
+          stroke="url(#splashBrainGradient)"
+          stroke-width="2.5"
+          fill="none"
+          class="brain-path"
+        />
+        <!-- Code brackets inside brain -->
+        <path
+          d="M27 32l-6 8 6 8"
+          stroke="url(#splashCodeGradient)"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="code-bracket-left"
+        />
+        <path
+          d="M53 32l6 8-6 8"
+          stroke="url(#splashCodeGradient)"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="code-bracket-right"
+        />
+        <!-- Slash in middle -->
+        <path
+          d="M35 48l10-20"
+          stroke="url(#splashCodeGradient)"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          class="code-slash"
+        />
+        <!-- Gradient definitions -->
+        <defs>
+          <linearGradient id="splashBrainGradient" x1="12" y1="8" x2="68" y2="72">
+            <stop offset="0%" stop-color="#1E88E5" />
+            <stop offset="50%" stop-color="#0D47A1" />
+            <stop offset="100%" stop-color="#1E88E5" />
+          </linearGradient>
+          <linearGradient id="splashCodeGradient" x1="20" y1="25" x2="60" y2="55">
+            <stop offset="0%" stop-color="#FFD700" />
+            <stop offset="100%" stop-color="#FFA000" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- Brand Name -->
+    <div class="splash-brand">
+      <span class="splash-brand-main">BrainyTech</span>
+      <span class="splash-brand-sub">Vibe Model Switcher 4 GLM</span>
+    </div>
+
+    <!-- Version -->
+    <div class="splash-version">v1.0.0</div>
+  </div>
+
+  <script>
+    // Notify main process when splash is ready to close
+    setTimeout(() => {
+      document.body.classList.add('fade-out');
+      setTimeout(() => {
+        if (window.electronAPI) {
+          window.electronAPI.splashComplete();
+        }
+      }, 500);
+    }, 2500);
+  </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+{
+  "name": "vibe-model-switcher-4-glm",
+  "version": "1.0.0",
+  "description": "Claude CLI Model/Profile Switcher",
+  "main": "src/main/main.js",
+  "scripts": {
+    "postinstall": "electron-builder install-app-deps",
+    "rebuild": "electron-rebuild -f -w better-sqlite3",
+    "dev": "concurrently \"npm run dev:vite\" \"npm run dev:electron\"",
+    "dev:vite": "vite",
+    "dev:electron": "wait-on http://localhost:5180 && node electron-launcher.js",
+    "start": "node electron-launcher.js",
+    "build": "vite build",
+    "package": "npm run build && electron-builder",
+    "package:win": "npm run build && electron-builder --win"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.7.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "electron": "^32.3.3",
+    "electron-builder": "^25.1.8",
+    "electron-rebuild": "^3.2.9",
+    "vite": "^6.0.0",
+    "wait-on": "^8.0.2"
+  },
+  "build": {
+    "appId": "net.brainytech.vibemodelswitcher",
+    "productName": "VibeModelSwitcher4GLM",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist-renderer/**/*",
+      "src/main/**/*",
+      "src/preload/**/*",
+      "src/splash/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
