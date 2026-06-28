@@ -146,7 +146,7 @@ const SettingsModal = () => {
                     <input
                       type="text"
                       className="form-input"
-                      placeholder="C:\Users\username\.claude"
+                      placeholder="~/.claude or C:\Users\username\.claude"
                       value={claudePath}
                       onChange={handlePathChange}
                     />
@@ -167,7 +167,7 @@ const SettingsModal = () => {
                     <circle cx="12" cy="12" r="10" />
                     <path d="M12 16v-4M12 8h.01" />
                   </svg>
-                  <span>Usually located at <code>C:\Users\[username]\.claude</code></span>
+                  <span>Usually located at <code>~/.claude</code> (macOS/Linux) or <code>C:\Users\[username]\.claude</code> (Windows)</span>
                 </div>
 
                 <button

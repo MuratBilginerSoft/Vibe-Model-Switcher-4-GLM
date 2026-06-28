@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, Menu } = require('electron');
 const path = require('path');
 const DatabaseManager = require('./Database');
 const ProfileManager = require('./ProfileManager');
@@ -182,7 +182,69 @@ class Main {
     });
   }
 
+  setupAppMenu() {
+    // Custom in-window title bar → no native menu on Windows/Linux. macOS always
+    // shows a top menu bar and needs one for the standard editing/quit shortcuts
+    // (Cmd+C/V/X/A, Cmd+Q/W).
+    if (process.platform !== 'darwin') {
+      Menu.setApplicationMenu(null);
+      return;
+    }
+
+    const template = [
+      {
+        label: app.name,
+        submenu: [
+          { role: 'about' },
+          { type: 'separator' },
+          { role: 'hide' },
+          { role: 'hideOthers' },
+          { role: 'unhide' },
+          { type: 'separator' },
+          { role: 'quit' },
+        ],
+      },
+      {
+        label: 'Edit',
+        submenu: [
+          { role: 'undo' },
+          { role: 'redo' },
+          { type: 'separator' },
+          { role: 'cut' },
+          { role: 'copy' },
+          { role: 'paste' },
+          { role: 'selectAll' },
+        ],
+      },
+      {
+        label: 'View',
+        submenu: [
+          { role: 'reload' },
+          { role: 'toggleDevTools' },
+          { type: 'separator' },
+          { role: 'resetZoom' },
+          { role: 'zoomIn' },
+          { role: 'zoomOut' },
+          { type: 'separator' },
+          { role: 'togglefullscreen' },
+        ],
+      },
+      {
+        label: 'Window',
+        submenu: [
+          { role: 'minimize' },
+          { role: 'zoom' },
+          { role: 'close' },
+        ],
+      },
+    ];
+
+    Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+  }
+
   setupAppEvents() {
+    this.setupAppMenu();
+
     app.on('window-all-closed', () => {
       if (process.platform !== 'darwin') {
         app.quit();
@@ -191,7 +253,7 @@ class Main {
 
     app.on('activate', () => {
       if (BrowserWindow.getAllWindows().length === 0) {
-        this.createWindow();
+        this.createMainWindow();
       }
     });
 
